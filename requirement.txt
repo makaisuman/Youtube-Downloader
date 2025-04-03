@@ -1,2 +1,2 @@
-yt-dlp==2023.4.7
+youtube-dl
 streamlit
