@@ -1,5 +1,11 @@
 import streamlit as st
-import yt_dlp
+import streamlit as st
+try:
+    import yt_dlp
+    st.write("yt-dlp is installed!")
+    st.write(f"yt-dlp version: {yt_dlp.__version__}")
+except ImportError as e:
+    st.error(f"Error: {e}")
 
 st.title("YouTube Video Downloader")
 
