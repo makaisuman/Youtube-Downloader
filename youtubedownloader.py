@@ -1,27 +1,27 @@
 import streamlit as st
-import youtube_dl  # Switch to youtube-dl
 
-st.title("YouTube Video Downloader")
+# Title of the app
+st.title('Simple Streamlit Calculator')
 
-url = st.text_input("Enter YouTube Video URL:")
+# Input fields for two numbers
+num1 = st.number_input('Enter first number', value=0)
+num2 = st.number_input('Enter second number', value=0)
 
-if url:
-    try:
-        # Set options for youtube-dl
-        ydl_opts = {
-            'format': 'bestvideo+bestaudio/best',
-            'outtmpl': 'downloads/%(title)s.%(ext)s',  # Save to downloads folder
-        }
+# Dropdown to select operation
+operation = st.selectbox('Select operation', ['Add', 'Subtract', 'Multiply', 'Divide'])
 
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            info_dict = ydl.extract_info(url, download=False)
-            video_title = info_dict.get('title', 'Unknown Title')
+# Perform calculation based on selected operation
+if operation == 'Add':
+    result = num1 + num2
+elif operation == 'Subtract':
+    result = num1 - num2
+elif operation == 'Multiply':
+    result = num1 * num2
+elif operation == 'Divide':
+    if num2 != 0:
+        result = num1 / num2
+    else:
+        result = 'Cannot divide by zero'
 
-            st.write(f"**Title:** {video_title}")
-            st.write(f"Downloading {video_title}...")
-
-            ydl.download([url])
-            st.success(f"Download Complete! The video '{video_title}' has been saved.")
-
-    except Exception as e:
-        st.error(f"Error: {e}")
+# Display the result
+st.write(f'Result: {result}')
